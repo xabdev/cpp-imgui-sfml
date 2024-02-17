@@ -85,14 +85,17 @@ void cameraView(sf::RenderWindow& window, sf::RectangleShape& rectangle, sf::Vie
 }
 
 
-
+/*void gravity(sf::Vector2f& rectangleVelocity, sf::RectangleShape& rectangle) {
+    const float Gravity = 0.5f;
+    rectangleVelocity.y += Gravity;
+    rectangle.move(rectangleVelocity);
+}*/
 
 void gravity(sf::Vector2f& rectangleVelocity, sf::RectangleShape& rectangle, float& dtSeconds) {
-    const float Gravity = 800.0f; // Adjust this value to control the strength of gravity
+    const float Gravity = 2000.0f; // Adjust this value to control the strength of gravity
     rectangleVelocity.y += Gravity * dtSeconds;
     rectangle.move(rectangleVelocity * dtSeconds);
 }
-
 
 
 bool collisionBottom(sf::RectangleShape& rectangle, sf::Vector2f& rectangleVelocity, sf::RectangleShape& floor) {
@@ -109,15 +112,44 @@ bool collisionBottom(sf::RectangleShape& rectangle, sf::Vector2f& rectangleVeloc
 }
 
 
+
+/*void controller(sf::Vector2f& rectangleVelocity, sf::RectangleShape& rectangle) {
+
+    float moveSpeed = 0.15f;
+    rectangle.move(rectangleVelocity);
+    rectangleVelocity *= 0.95f;
+
+    // Set threshold for velocity
+    const float velocityThreshold = 0.1f;
+    if (std::abs(rectangleVelocity.x) < velocityThreshold) {
+        rectangleVelocity.x = 0.0f;
+    }
+
+    //Move the Player Horizontally
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        // Move left
+        rectangleVelocity.x -= moveSpeed;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        // Move right
+        rectangleVelocity.x += moveSpeed; 
+    }
+
+    if (rectangleVelocity.x != 0) {
+        std::cout << rectangleVelocity.x << std::endl;
+    }
+}*/
+
+
 void controller(sf::Vector2f& rectangleVelocity, sf::RectangleShape& rectangle, float dtSeconds) {
     // Adjust movement speed based on delta time
-    float moveSpeed = 500.0f * dtSeconds; // Adjust this value for faster movement
+    float moveSpeed = 800.0f * dtSeconds; // Adjust this value for faster movement
 
     // Apply movement
     rectangle.move(rectangleVelocity * dtSeconds);
 
     // Apply friction
-    rectangleVelocity *= 0.98f; // Adjusted friction value
+    rectangleVelocity *= 0.9f;
 
     // Set threshold for velocity
     const float velocityThreshold = 0.1f;
@@ -140,6 +172,11 @@ void controller(sf::Vector2f& rectangleVelocity, sf::RectangleShape& rectangle, 
         std::cout << rectangleVelocity.x << std::endl;
     }
 }
+
+
+
+
+
 
 
 
@@ -186,7 +223,9 @@ int main() {
         
         render(window, rectangle, floor);
 
-
+        
+        //sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+        //std::cout << "Mouse Cursor Position: (" << mousePosition.x << ", " << mousePosition.y << ")" << std::endl;
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             // Get the current position of the mouse cursor relative to the window
             sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
