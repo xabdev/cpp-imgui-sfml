@@ -1,0 +1,1 @@
+g++.exe main.cpp imgui/imgui.cpp imgui/imgui_widgets.cpp imgui/imgui_draw.cpp imgui/imgui_tables.cpp imgui-sfml/imgui-SFML.cpp -o build/main -IC:\SFML-2.5.1\include -IC:\imgui -LC:\SFML-2.5.1\lib -DSFML_STATIC -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -static -lgdi32 -luser32 -lopengl32 -lglu32 -lwinmm -static-libgcc -static-libstdc++ -lpthread  && build\main.exe
